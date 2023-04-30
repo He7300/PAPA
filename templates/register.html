@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        /* Set the font family and background color for the entire page */
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f2f2f2;
+        }
+
+        /* Style the header element */
+        header {
+          background-color: #1a1a1a;
+          color: #fff;
+          padding: 20px;
+          box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+        }
+
+        header h1 {
+          margin: 0;
+          font-size: 36px;
+          line-height: 1.2;
+        }
+
+        /* Style the main content area */
+        main {
+          max-width: 800px;
+          margin: 30px auto;
+          padding: 20px;
+          font-size: 16px;
+          line-height: 1.5;
+          background-color: #fff;
+          border-radius: 5px;
+          box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+        }
+
+        form {
+          margin-top: 20px;
+        }
+
+        form label {
+          font-size: 18px;
+          line-height: 1.5;
+          display: block;
+          margin-bottom: 8px;
+          color: #666;
+        }
+
+        form input[type="text"],
+        form input[type="password"],
+        form input[type="email"] {
+          padding: 8px;
+          border: none;
+          border-bottom: 2px solid #ccc;
+          width: 100%;
+        }
+
+        form input[type="text"]:focus,
+        form input[type="password"]:focus,
+        form input[type="email"]:focus {
+          outline: none;
+          border-bottom: 2px solid #1a1a1a;
+        }
+
+        form input[type="submit"] {
+          margin-top: 12px;
+          background-color: #1a1a1a;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: all 0.2s ease-in-out;
+        }
+
+        form input[type="submit"]:hover,
+        form input[type="submit"]:active {
+          background-color: #333;
+        }
+
+        main p {
+          font-size: 16px;
+          line-height: 1.5;
+          margin-top: 20px;
+        }
+
+        main p a {
+          padding: 4px;
+          background-color: #1a1a1a;
+          text-decoration: none;
+          color: #fff;
+          border-radius: 4px;
+        }
+
+        /* Style the footer element */
+        footer {
+          background-color: #1a1a1a;
+          color: #fff;
+          padding: 20px;
+          text-align: center;
+          margin-top: 40px;
+        }
+
+        footer p {
+          margin: 0;
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 24px;
+                line-height: 1.2;
+            }
+
+            form input[type="submit"] {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+
+            main {
+                padding: 10px;
+            }
+        }
+      nav {
+        background-color: #333;
+        height: 50px;
+      }
+
+      nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        float: right;
+      }
+
+      nav li {
+        margin-right: 15px;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        display: block;
+        height: 100%;
+        padding: 0 10px;
+        line-height: 50px;
+        font-weight: bold;
+      }
+
+      nav h1 {
+        display: flex;
+      }
+
+      nav img {
+          height: 50px;
+          width: 50px;
+          float: left;
+          margin-top: auto;
+      }
+    </style>
+</head>
+<body>
+    <header>
+        <nav>
+                <img src="http://127.0.0.1:8000/images/stephan.png" alt="Logo">
+            <ul>
+                <li><a href="http://127.0.0.1:8888/">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="http://127.0.0.1:8888/community">community</a></li>
+                <li><a href="http://127.0.0.1:8888/ranking">ranking</a></li>
+                <li><a href="http://127.0.0.1:8888/identify_plant">PDetector</a></li>
+                <li><a href="http://127.0.0.1:8888/login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div style="text-align: center;">
+            <form action="/register" method="post">
+                <label for="username">Username:</label>
+                <br>
+                <input type="text" id="username" name="username" required>
+                <br><br>
+                <label for="password">Password:</label>
+                <br>
+                <input type="password" id="password" name="password" required>
+                <br><br>
+                <label for="email">Email:</label>
+                <br>
+                <input type="email" id="email" name="email" required>
+                <br><br>
+                <input type="submit" value="Register">
+            </form>
+        </div>
+        <p style="text-align: center;">Already have an account? <a href="/login">Login here</a></p>
+    </main>
+    <footer>
+        <p>&copy; 2023 My Web App</p>
+    </footer>
+</body>
+</html>

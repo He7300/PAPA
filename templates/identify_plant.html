@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="icon" href="/favicon.ico">
+    <title>Identify Your Plant</title>
+    <link rel="stylesheet" href="{{ static_url('style.css') }}">
+    <style>
+    /* Add styles for the boxes */
+    .image-description-container {
+        display: flex;
+    }
+
+    .image-box, .description-box {
+        flex: 1;
+        margin: 1rem;
+        padding: 1rem;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+    }
+</style>
+  </head>
+  <body>
+    <header>
+        <nav>
+            <img src="http://127.0.0.1:8000/images/stephan.png" alt="Logo">
+            <ul>
+                <li><a href="http://127.0.0.1:8888/">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="http://127.0.0.1:8888/community">community</a></li>
+                <li><a href="http://127.0.0.1:8888/ranking">ranking</a></li>
+                <li><a href="http://127.0.0.1:8888/identify_plant">PDetector</a></li>
+                <li><a href="http://127.0.0.1:8888/login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h2>Upload an Image</h2>
+        <form action="/identify_plant" method="POST" enctype="multipart/form-data">
+            <input type="file" name="image">
+            <button type="submit">Submit</button>
+        </form>
+        <h2>Plant Information</h2>
+        <div class="image-description-container">
+            <div class="image-box">
+                <img id="uploaded-image" src="" alt="Uploaded image" style="max-width: 100%; max-height: 100%;">
+            </div>
+            <div class="description-box">
+                <p id="plant-description">Information on the plant will be displayed here.</p>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <p>&copy; {{ year }} My Tornado App</p>
+    </footer>
+
+    <!-- Add JavaScript to display the uploaded image -->
+    <script>
+        document.querySelector('form').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const fileInput = event.target.querySelector('input[type="file"]');
+            const image = fileInput.files[0];
+            const reader = new FileReader();
+
+            // reader.onload = function(e) {
+            //     document.querySelector('#uploaded-image').src = e.target.result;
+            //     // TODO: Add logic to fetch the plant description and update the #plant-description element
+            // };
+            reader.onload = function(e) {
+    document.querySelector('#uploaded-image').src = e.target.result;
+
+    // Extract the plant name from the image file
+    const plantName = image.name.split('.')[0]; // Assuming the plant name is the file name without the extension
+
+    // Call the API to get the plant details
+        fetch(`http://127.0.0.1:8000/plant/cacti`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`Error fetching plant details: ${response.statusText}`);
+                }
+                return response.text();
+            })
+            .then(plantDetails => {
+                // Replace newline characters with HTML line breaks
+                const prettyDetails = plantDetails.replace(/\n/g, '<br>');
+
+                // Update the plant description element with the formatted details
+                document.querySelector('#plant-description').innerHTML  = prettyDetails;
+            })
+            .catch(error => {
+                console.error('Error fetching plant details:', error);
+                document.querySelector('#plant-description').textContent = 'Error fetching plant details. Please try again.';
+            });
+    };
+
+
+            if (image) {
+                reader.readAsDataURL(image);
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="icon" href="/favicon.ico">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Plant Resource Library - Resources</title>
+	<link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+	<header>
+		<h1>Plant Resource Library</h1>
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+				<li><a href="/resources">Resources</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<h2>Resources</h2>
+		<form>
+			<label for="topic">Topic:</label>
+			<select id="topic" name="topic">
+				<option value="">All</option>
+				{% for topic in topics %}
+				<option value="{{ topic }}" {% if selected_topic==topic %}selected{% end %}>{{ topic }}</option>
+				{% end %}
+			</select>
+
+
+
+			<label for="format">Format:</label>
+			<select id="format" name="format">
+				<option value="">All</option>
+				{% for format in formats %}
+				<option value="{{ format }}" {% if selected_format==format %}selected{% end %}>{{ format }}</option>
+				{% end %}
+			</select>
+			<label for="sort">Sort By:</label>
+			<select id="sort" name="sort">
+				<option value="rating" {% if sorted_by_rating=="rating" %}selected{% end %}>Rating</option>
+				<option value="title" {% if sorted_by_rating=="title" %}selected{% end %}>Title</option>
+			</select>
+			<input type="submit" value="Filter">
+		</form>
+		<ul>
+			{% for resource in resources %}
+			<li>
+				<h3>{{ resource["title"] }}</h3>
+				<p>{{ resource["format"] }}, {{ resource["topic"] }}, Rating: {{ resource["rating"] }}</p>
+				<p><a href="{{ resource["url"] }}">View Resource</a></p>
+			</li>
+			{% end %}
+		</ul>
+	</main>
+</body>
+</html>

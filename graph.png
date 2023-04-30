@@ -1,0 +1,1 @@
+{"detail":[{"loc":["body","x"],"msg":"field required","type":"value_error.missing"},{"loc":["body","y"],"msg":"field required","type":"value_error.missing"}]}

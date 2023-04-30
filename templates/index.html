@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+    <style>
+        /* Set the font family and background color for the entire page */
+        body {
+          font-family: Arial, sans-serif;
+          background-color: #f2f2f2;
+        }
+
+        /* Style the header element */
+        header {
+          background-color: #1a1a1a;
+          color: #fff;
+          padding: 20px;
+          box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+        }
+
+        header h1 {
+          margin: 0;
+          font-size: 36px;
+          line-height: 1.2;
+        }
+
+        /* Style the main content area */
+        main {
+          max-width: 800px;
+          margin: 30px auto;
+          padding: 20px;
+          font-size: 16px;
+          line-height: 1.5;
+          background-color: #fff;
+          border-radius: 5px;
+          box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+        }
+
+        form {
+          margin-top: 20px;
+        }
+
+        form label {
+          font-size: 18px;
+          line-height: 1.5;
+          display: block;
+          margin-bottom: 8px;
+          color: #666;
+        }
+
+        form input[type="text"],
+        form input[type="password"],
+        form input[type="email"] {
+          padding: 8px;
+          border: none;
+          border-bottom: 2px solid #ccc;
+          width: 100%;
+        }
+
+        form input[type="text"]:focus,
+        form input[type="password"]:focus,
+        form input[type="email"]:focus {
+          outline: none;
+          border-bottom: 2px solid #1a1a1a;
+        }
+
+        form input[type="submit"] {
+          margin-top: 12px;
+          background-color: #1a1a1a;
+          color: #fff;
+          border: none;
+          padding: 10px 20px;
+          border-radius: 4px;
+          cursor: pointer;
+          transition: all 0.2s ease-in-out;
+        }
+
+        form input[type="submit"]:hover,
+        form input[type="submit"]:active {
+          background-color: #333;
+        }
+
+        main p {
+          font-size: 16px;
+          line-height: 1.5;
+          margin-top: 20px;
+        }
+
+        main p a {
+          padding: 4px;
+          background-color: #1a1a1a;
+          text-decoration: none;
+          color: #fff;
+          border-radius: 4px;
+        }
+
+        /* Style the footer element */
+        footer {
+          background-color: #1a1a1a;
+          color: #fff;
+          padding: 20px;
+          text-align: center;
+          margin-top: 40px;
+        }
+
+        footer p {
+          margin: 0;
+        }
+
+        /* Media query for smaller screens */
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 24px;
+                line-height: 1.2;
+            }
+
+            form input[type="submit"] {
+                font-size: 16px;
+                padding: 8px 16px;
+            }
+
+            main {
+                padding: 10px;
+            }
+        }
+      nav {
+        background-color: #333;
+        height: 50px;
+      }
+
+      nav ul {
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        float: right;
+      }
+
+      nav li {
+        margin-right: 15px;
+      }
+
+      nav a {
+        color: white;
+        text-decoration: none;
+        display: block;
+        height: 100%;
+        padding: 0 10px;
+        line-height: 50px;
+        font-weight: bold;
+      }
+
+      nav h1 {
+        display: flex;
+      }
+
+      nav img {
+          height: 50px;
+          width: 50px;
+          float: left;
+          margin-top: auto;
+      }
+    .container {
+          display: flex;
+          justify-content: space-between;
+        }
+
+        .panel {
+          flex-basis: 45%;
+        }
+
+        .left-panel {
+          padding: 20px;
+          background-color: #f0f0f0;
+          border-radius: 5px;
+          box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+        }
+
+        .right-panel {
+          padding: 20px;
+          background-color: #f0f0f0;
+          border-radius: 5px;
+          box-shadow: 0px 2px 2px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+          font-size: 16px;
+          font-weight: 400;
+        }
+
+        #chat-box {
+          height: 300px;
+          overflow-y: scroll;
+          margin-bottom: 20px;
+        }
+
+.message {
+  padding: 8px;
+  margin-bottom: 10px;
+  max-width: 70%;
+}
+
+.user-message {
+  background-color: #98FB98;
+  border-radius: 8px 8px 8px 0;
+  align-self: flex-start;
+}
+
+.bot-message {
+  background-color: #1a1a1a;
+  color: #fff;
+  border-radius: 8px 8px 0 8px;
+  align-self: flex-end;
+}
+
+#chat-box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  overflow-y: auto;
+  max-height: 300px;
+}
+
+
+        .message p {
+          margin: 0;
+        }
+
+        .message span {
+          font-size: 12px;
+          color: #888;
+        }
+    </style>
+
+</head>
+<body>
+    <header>
+        <nav>
+                <img src="http://127.0.0.1:8000/images/stephan.png" alt="Logo">
+            <ul>
+                <li><a href="http://127.0.0.1:8888/">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="http://127.0.0.1:8888/community">community</a></li>
+                <li><a href="http://127.0.0.1:8888/ranking">ranking</a></li>
+                <li><a href="http://127.0.0.1:8888/identify_plant">PDetector</a></li>
+                <li><a href="http://127.0.0.1:8888/login">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+      <div class="container">
+        <div class="panel left-panel">
+          <h2>Chat with Us</h2>
+          <p class="subtitle">Connect with our customer support team</p>
+        </div>
+        <div class="panel right-panel">
+          <h2>Chat</h2>
+          <div id="chat-box"></div>
+          <form id="chat-form">
+            <input type="text" id="message" placeholder="Type your message here...">
+            <button type="submit">Send</button>
+          </form>
+        </div>
+      </div>
+    </main>
+<script>
+  const chatBox = document.getElementById('chat-box');
+  const chatForm = document.getElementById('chat-form');
+  const messageInput = document.getElementById('message');
+  const apiUrl = 'http://127.0.0.1:8000/chat';
+
+  async function sendMessage(message) {
+      displayMessage({ sender: 'user', message: message, timestamp: new Date().toISOString() });
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message: message, sender: 'user', timestamp: new Date().toISOString() })
+      });
+      if (response.ok) {
+        const jsonResponse = await response.json();
+        displayMessage(jsonResponse);
+      } else {
+        console.error('Error sending message:', response.status, response.statusText);
+      }
+    }
+
+//   function displayMessage(message) {
+//   const messageElement = document.createElement('div');
+//   messageElement.classList.add('message');
+//   messageElement.classList.add(message.sender === 'user' ? 'user-message' : 'bot-message');
+//   messageElement.innerHTML = `
+//     <p>${message.message}</p>
+//     <span>${new Date(message.timestamp).toLocaleString()}</span>
+//   `;
+//   chatBox.appendChild(messageElement);
+//   chatBox.scrollTop = chatBox.scrollHeight; // Automatically scroll to the latest message
+// }
+  function displayMessage(message) {
+  const messageElement = document.createElement('div');
+  messageElement.classList.add('message');
+  messageElement.classList.add(message.sender === 'user' ? 'user-message' : 'bot-message');
+  messageElement.innerHTML = `
+    <p>${message.message}</p>
+    <span>${new Date(message.timestamp).toLocaleString()}</span>
+  `;
+  chatBox.appendChild(messageElement);
+  chatBox.scrollTop = chatBox.scrollHeight; // Automatically scroll to the latest message
+}
+
+
+  // add event listener for chat form submission
+  chatForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const message = messageInput.value.trim();
+    if (message) {
+      sendMessage(message);
+      messageInput.value = '';
+    }
+  });
+</script>
+    <footer>
+        <p>&copy; 2023 My Web App</p>
+    </footer>
+</body>
+</html>
