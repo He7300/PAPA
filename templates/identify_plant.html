@@ -26,7 +26,7 @@
             <img src="http://127.0.0.1:8000/images/stephan.png" alt="Logo">
             <ul>
                 <li><a href="http://127.0.0.1:8888/">Home</a></li>
-                <li><a href="#">Shop</a></li>
+                <li><a href="http://127.0.0.1:8888/shop_SEED">Shop</a></li>
                 <li><a href="http://127.0.0.1:8888/community">community</a></li>
                 <li><a href="http://127.0.0.1:8888/ranking">ranking</a></li>
                 <li><a href="http://127.0.0.1:8888/identify_plant">PDetector</a></li>
@@ -37,7 +37,7 @@
     <main>
         <h2>Upload an Image</h2>
         <form action="/identify_plant" method="POST" enctype="multipart/form-data">
-            <input type="file" name="image">
+            <input type="file" name="image" id="image">
             <button type="submit">Submit</button>
         </form>
         <h2>Plant Information</h2>
@@ -62,18 +62,45 @@
             const image = fileInput.files[0];
             const reader = new FileReader();
 
-            // reader.onload = function(e) {
-            //     document.querySelector('#uploaded-image').src = e.target.result;
-            //     // TODO: Add logic to fetch the plant description and update the #plant-description element
-            // };
             reader.onload = function(e) {
-    document.querySelector('#uploaded-image').src = e.target.result;
+                document.querySelector('#uploaded-image').src = e.target.result;
+                // TODO: Add logic to fetch the plant description and update the #plant-description element
+                // Create a new FormData object and append the image file to it
+            const formData = new FormData();
+            formData.append('image', image);
+
+    //         // Call the API to identify the plant in the image
+    //         fetch('127.0.0.1:8888/identify_plant', {
+    //             method: 'post',
+    //             body: formData
+    //         })
+    //         .then(response => {
+    //             if (!response.ok) {
+    //                 throw new Error(`Error identifying plant: ${response.statusText}`);
+    //             }
+    //             return response.text();
+    //         })
+    //         .then(plantDetails => {
+    //             // Replace newline characters with HTML line breaks
+    //             const prettyDetails = plantDetails.replace(/\n/g, '<br>');
+    //
+    //             // Update the plant description element with the formatted details
+    //             document.querySelector('#plant-description').innerHTML = prettyDetails;
+    //         })
+    //         .catch(error => {
+    //             console.error('Error identifying plant:', error);
+    //             document.querySelector('#plant-description').textContent = 'Error identifying plant. Please try again.';
+    //         });
+    //         };
+    //         reader.onload = function(e) {
+    // document.querySelector('#uploaded-image').src = e.target.result;
 
     // Extract the plant name from the image file
     const plantName = image.name.split('.')[0]; // Assuming the plant name is the file name without the extension
+    const extension = image.name.split('.')[1]; // Assuming the plant name is the file name without the extension
 
     // Call the API to get the plant details
-        fetch(`http://127.0.0.1:8000/plant/cacti`)
+        fetch(`http://127.0.0.1:8000/plant/${plantName}/${extension}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`Error fetching plant details: ${response.statusText}`);
@@ -92,8 +119,18 @@
                 document.querySelector('#plant-description').textContent = 'Error fetching plant details. Please try again.';
             });
     };
+            event.preventDefault();
 
+          const formData = new FormData();
+          formData.append('image', document.querySelector('#image').files[0]);
 
+          fetch('http://127.0.0.1:8888/identify_plant', {
+            method: 'POST',
+            body: formData
+          })
+          .then(response => response.text())
+          .then(data => console.log(data))
+          .catch(error => console.error(error));
             if (image) {
                 reader.readAsDataURL(image);
             }

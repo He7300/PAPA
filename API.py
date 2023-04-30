@@ -6,6 +6,13 @@ from matplotlib import pyplot as plt
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 
+import sys
+
+# Add the directory to the sys.path list
+sys.path.append('E:\PAPACODE')
+
+from dataScraper import get_response
+
 app = FastAPI()
 
 origins = ["*"]
@@ -102,22 +109,18 @@ async def chat_endpoint(chat_message: ChatMessage):
 
 
 
-@app.get("/plant/{plant_name}")
-async def plant(plant_name):
+@app.get("/plant/{plant_name}/{extension}")
+async def plant(plant_name, extension):
     print(plant_name)
-    # Save the uploaded image file
-    # image_path = f"images/{image.filename}"
-    # with open(image_path, "wb") as f:
-    #     f.write(await image.read())
-
-    # Handle plant identification logic
-    # ...
-
-    # Get the plant name from the image file (assuming the plant name is the file name without the extension)
-    # plant_name = image.filename.split('.')[0]
-
-    # Call the get_plant_details function to fetch plant details from the API
-    plant_details = get_plant_details(plant_name).replace('\n', '<br>')
+    img_path = r'C:\Users\He\Documents\dragonHacks\images' + '\\' + plant_name +'.'+ extension
+    d_plant = get_response(img_path)
+    chat_log = [{
+        'role': 'system',
+        'content': r'Can you provide me with a list of important characteristics to know about the following plant?'
+                   r' These can include information about its appearance, growth habits, reproduction, environmental requirements, and any other important features. Please provide the information in a clear and concise list format.',
+    }, {'role': 'user', 'content': d_plant[0]}]
+    response = openai.ChatCompletion.create(model='gpt-3.5-turbo', messages=chat_log, max_tokens=100)
+    plant_details = response.choices[0]['message']['content'].replace('\n', '<br>')
 
     return plant_details
     # Return the plant details in the response

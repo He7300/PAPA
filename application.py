@@ -137,18 +137,14 @@ class RankingHandler(tornado.web.RequestHandler):
         # Render the ranking page
         self.render('ranking.html')
 
+class ShopHandler(tornado.web.RequestHandler):
+    def get(self):
+        # Render the ranking page
+        self.render('shop_sensor.html')
+
 class MainHandler(tornado.web.RequestHandler):
     def get(self):
         self.render("index.html", year=datetime.datetime.now().year)
-
-class SearchHandler(tornado.web.RequestHandler):
-    def get(self):
-        query = self.get_query_argument("query", "")
-        # TODO: Implement plant search logic here
-        self.render("identify.html", year=datetime.datetime.now().year)
-
-    def post(self):
-        pass
 
 class CommunityHandler(tornado.web.RequestHandler):
     def get(self):
@@ -162,8 +158,8 @@ class IdentifyHandler(tornado.web.RequestHandler):
         image = self.request.files['image'][0]
         image_name = image['filename']
         image_body = image['body']
-
         images_path = 'images'
+
         if not os.path.exists(images_path):
             os.makedirs(images_path)
 
@@ -183,15 +179,6 @@ class CommentsHandler(tornado.web.RequestHandler):
         self.comments.append({"name": name, "comment": comment})
         self.redirect("/identify")
 
-class ReviewHandler(tornado.web.RequestHandler):
-    def post(self):
-        title = self.get_argument("title")
-        rating = int(self.get_argument("rating"))
-        comment = self.get_argument("comment")
-        # Save the review to a database or file
-        # Redirect to the page displaying the resource being reviewed
-
-
 
 def make_app():
     templates_path = os.path.join(os.getcwd(), "templates\\")
@@ -202,13 +189,13 @@ def make_app():
         (r"/", MainHandler),
         # (r"/favicon.ico", tornado.web.ErrorHandler, {"status_code": 404}),
         (r"/identify_plant", IdentifyHandler),
-        (r"/search", SearchHandler),
         (r"/comments", CommentsHandler),
         (r"/community", CommunityHandler),
         (r"/register", RegisterHandler),
         (r"/login", LoginHandler),
         (r"/notifications", NotificationsHandler),
         (r'/ranking', RankingHandler),
+        (r'/shop_SEED', ShopHandler),
         (r"/static/(.*)", tornado.web.StaticFileHandler, {"path": static_path}),
     ], template_path=templates_path, static_path=static_path,cookie_secret=cookie_secret)
 
